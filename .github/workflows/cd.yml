@@ -3,8 +3,9 @@ on:
   push:
     branches: [ master ]
 
-
-documentation:
+jobs:
+  build_and_deploy:
+    name: "Build & Deploy"
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
