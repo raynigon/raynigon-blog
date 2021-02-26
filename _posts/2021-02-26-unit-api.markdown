@@ -1,8 +1,8 @@
 ---
 layout: post
-title:  "Unit API + Spring Boot"
+title:  "Unit API + Spring Boot (1)"
 author: Simon Schneider
-date:   2021-02-26 12:00:00 +0100
+date:   2021-02-26 18:32:00 +0100
 categories: spring-boot unit-api
 image: /img/posts/2021-02-26-unit-api-header.png
 ---
@@ -64,14 +64,66 @@ The new unit-api allows to use Units in annotations and integrates the JSR-385 i
 It should be possible to use the JSR-385 in Spring Boot without configuration.
 
 ## Unit API with Jackson
-The first example is to create a rest api which allows us to get the current weather data in SI-Units.
-<!-- Create Examples -->
-## Unit API with Hibernate
-In this chapter the JSR-385 integration into the persistence layer is discussed.
-<!-- Create Examples -->
+The first example shows how to create a rest api which allows to get the current weather data in SI-Units.
+The Source of the current weather data is the `WeatherService`.
+This Service will provide static result, which makes it easier to created tests.
+{% gist c55a10742791e6eb114f4d53a7d4c99d WeatherService.java  %}
+
+Then a controller has to be created, which exposes an endpoint to query the current weather data:
+{% gist c55a10742791e6eb114f4d53a7d4c99d WeatherController.java  %}
+
+The controller uses the WeatherResponse class, which contains two attributes.
+The first attribute represents the current temperature, the second attribute the current humidity.
+{% gist c55a10742791e6eb114f4d53a7d4c99d WeatherResponse.java  %}
+This application is able to provide the current weather data, which we can retrieve with following command.
+```
+curl http://localhost:8080/api/v1/weather
+```
+```json
+{
+    "temperature":"30 ℃",
+    "humidity":"45 %"
+}
+```
+### Dynamic Units
+Usually it is enough to provide an endpoint with static units.
+But the described approach can be expanded to support dynamic units.
+
+The controller has to have a parameter which allows the switch between different units.
+
+{% gist c55a10742791e6eb114f4d53a7d4c99d WeatherControllerV2.java  %}
+As you can see we also have two new data transfer object classes.
+{% gist c55a10742791e6eb114f4d53a7d4c99d IWeatherResponse.java  %}
+{% gist c55a10742791e6eb114f4d53a7d4c99d WeatherResponseCelsius.java  %}
+{% gist c55a10742791e6eb114f4d53a7d4c99d WeatherResponseKelvin.java  %}
+
+The new endpoint should return degree Celsius by default.
+```
+curl http://localhost:8080/api/v2/weather
+```
+```json
+{
+    "temperature":"30 ℃",
+    "humidity":"45 %"
+}
+```
+And it should return the temperature in Kelvin if requested.
+```
+curl http://localhost:8080/api/v2/weather?unit=K
+```
+```json
+{
+    "temperature":"303.15 K",
+    "humidity":"45 %"
+}
+```
 
 # Conclusion
-<!-- How would a Mars Climate Orbiter Groundstation look like with the JSR-385? -->
+As we have seen above the [unit-api](https://unit-api.raynigon.com/) makes it simple to use the JSR-385 with Spring Boot.
+All Code can be found on [Github](https://github.com/raynigon/unit-api-example/tree/master/weather-app).
+But one question is still not answered: How would a Ground Station be designed with JSR-385?
 
 ## Mars Climate Orbiter Groundstation - Spring Boot
-<!-- Code Snippets and link to the Groundstaion example -->
+The question "How would a Ground Station be designed with JSR-385?" should be answered in seperate blog post.
+But for now you could checkout [this](https://github.com/raynigon/unit-api-example/tree/master/mars-climate-orbiter-ground-station)
+challenge which tries to answer the question.
