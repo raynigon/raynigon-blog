@@ -1,0 +1,20 @@
+name: CD
+on:
+  push:
+    branches: [ master ]
+
+
+documentation:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: bundle install
+      - run: jekyll build
+      - name: Upload documentation
+        uses: sebastianpopp/ftp-action@releases/v2
+        with:
+          host: ${{ secrets.WEBSPACE_HOST }}
+          user: ${{ secrets.WEBSPACE_USER }}
+          password: ${{ secrets.WEBSPACE_PASSWORD }}
+          localDir: "/_site/"
+          remoteDir: "."
