@@ -11,7 +11,7 @@ description: >- # this means to ignore newlines until "baseurl:"
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "https://blog.raynigon.de" # the base hostname & protocol for your site, e.g. http://example.com
 permalink: pretty
-banner_image: /img/logo.png
+banner_image: /img/background/code.jpg
 
 twitter_username: raynigon
 github_username:  raynigon
