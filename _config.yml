@@ -9,7 +9,7 @@ email: dev@raynigon.de
 description: >- # this means to ignore newlines until "baseurl:"
   A Blog about Spring, Kotlin, Java, DevOps and many more topics from my daily work.
 baseurl: "" # the subpath of your site, e.g. /blog
-url: "https://blog.raynigon.de" # the base hostname & protocol for your site, e.g. http://example.com
+url: "https://raynigon.de" # the base hostname & protocol for your site, e.g. http://example.com
 permalink: pretty
 banner_image: /img/background/code.jpg
 
