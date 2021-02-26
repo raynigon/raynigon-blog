@@ -13,7 +13,7 @@ jobs:
         uses: ruby/setup-ruby@v1.65.0
         with:
           ruby-version: 2.6.3
-      - run: bundle install
+          bundler-cache: true
       - run: jekyll build
       - name: Upload documentation
         uses: sebastianpopp/ftp-action@releases/v2
