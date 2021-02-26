@@ -7,6 +7,30 @@ categories: spring-boot unit-api
 image: /img/posts/2021-02-26-unit-api-header.png
 ---
 
-TLDR; 
+**TLDR;** If you work with SI-Units/Quantities in your application, try out the [Unit API](https://github.com/raynigon/unit-api/) which is an implementation of [JSR-385](https://www.jcp.org/en/jsr/detail?id=385) with focus on the SI System redefinition, modularity and support for Java SE 8.
+It integrates well into various Frameworks, Libraries and Languages, such as Spring Boot, Hibernate, Jackson, Kotlin and more.  
 
 # Introduction
+
+In the late 90s NASA send a sattelite to Mars, which should study the martian climate, atmosphere and surface changes and also act as a communications relay.
+After a successful 10 months of travel to Mars, on Sepmtember 23 1999 communications with the spacecraft was lost and never restored.
+During orbital insertion the Mars Climate Orbiter burned and broke into pieces.
+After extensive investigations a NASA review board found that the problem was in the software controlling the orbiter’s thrusters. 
+The software calculated the force that the thrusters needed to exert in pounds of force. 
+A second piece of code that read this data **assumed** it was in the metric unit—"newtons per square meter".
+The interface was specified to read/write the data in "newtons per square meter", 
+but this interfaces was not tested properly as NASA confirmed.
+The building costs of the 338-kilogram robotic space were $125 million.
+<br />
+<br />
+This Story shows the problem of conversion between different units and there specification in interfaces.
+Usually an interface allows to only send the value of a quantity and not the unit it was specified with.
+Therefore this mistakes happend and will be happening if interfaces are designed in this way.
+We have also seen, that this kind of errors can have fatal consequences, in this instance $125 million.
+A possible solution is to use more complex data types which allow the specification of a unit in the interface.
+
+# JSR-385
+
+# Unit API with Jackson
+
+# Unit API with Hibernate
