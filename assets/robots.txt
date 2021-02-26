@@ -1,0 +1,5 @@
+User-Agent: *
+Disallow: /imprint/
+Disallow: /authors/
+
+Sitemap: sitemap.xml

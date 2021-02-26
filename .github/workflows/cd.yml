@@ -16,8 +16,8 @@ jobs:
           bundler-cache: true
       - name: "Build Blog"
         run: bundle exec jekyll build
-        env: 
-          JEKYLL_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        #env: 
+        #  JEKYLL_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: "Copy Assets"
         run: cp -r assets/* ./site/
       - name: Upload documentation
