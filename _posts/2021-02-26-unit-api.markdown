@@ -69,3 +69,9 @@ The first example is to create a rest api which allows us to get the current wea
 ## Unit API with Hibernate
 In this chapter the JSR-385 integration into the persistence layer is discussed.
 <!-- Create Examples -->
+
+# Conclusion
+<!-- How would a Mars Climate Orbiter Groundstation look like with the JSR-385? -->
+
+## Mars Climate Orbiter Groundstation - Spring Boot
+<!-- Code Snippets and link to the Groundstaion example -->
