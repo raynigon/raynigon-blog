@@ -45,6 +45,7 @@ plugins:
   - jekyll-sitemap
   - jekyll-paginate
   - jekyll-seo-tag
+  - jekyll-gist
   - kramdown
   - rouge
 

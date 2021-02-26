@@ -14,7 +14,10 @@ jobs:
         with:
           ruby-version: 2.6.3
           bundler-cache: true
-      - run: bundle exec jekyll build
+      - name: "Build Blog"
+        run: bundle exec jekyll build
+        env: 
+          JEKYLL_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Upload documentation
         uses: sebastianpopp/ftp-action@releases/v2
         with:
