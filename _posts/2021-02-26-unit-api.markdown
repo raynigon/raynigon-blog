@@ -122,6 +122,8 @@ curl http://localhost:8080/api/v2/weather?unit=K
 
 # Conclusion
 As we have seen above the [unit-api](https://unit-api.raynigon.com/) makes it simple to use the JSR-385 with Spring Boot.
+We can also use the [unit-api](https://unit-api.raynigon.com/) on the persitence layer, 
+but this will be discussed in the next blog post, of this series.
 All Code can be found on [Github](https://github.com/raynigon/unit-api-example/tree/master/weather-app).
 But one question is still not answered: How would a Ground Station be designed with JSR-385?
 
