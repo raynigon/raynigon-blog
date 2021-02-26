@@ -2,7 +2,7 @@
 layout: post
 title:  "Unit API + Spring Boot"
 author: Simon Schneider
-date:   2021-02-26 09:21:55 +0100
+date:   2021-02-26 12:00:00 +0100
 categories: spring-boot unit-api
 image: /img/posts/2021-02-26-unit-api-header.png
 ---
@@ -30,7 +30,42 @@ We have also seen, that this kind of errors can have fatal consequences, in this
 A possible solution is to use more complex data types which allow the specification of a unit in the interface.
 
 # JSR-385
+In the [JSR-385 specification](https://docs.google.com/document/d/12KhosAFriGCczBs6gwtJJDfg_QlANT92_lhxUWO2gCY) it says:
+> JSR 385 proposes to establish safe and useful methods for modeling physical quantities. The specification includes:
+> * Interfaces and abstract classes with methods supporting unit operations, including:
+>   * Checking of unit compatibility
+>   * Expression of measurement in various units
+>   * Arithmetic operations on units
+> * Concrete classes implementing standard unit types (such as base and derived) and unit conversions.
+> * Concrete classes for parsing and formatting textual unit representations.
+> * A "database" or equivalent repository/system of predefined units.
 
-# Unit API with Jackson
+For example, this framework could be used in a project in which it may be unclear whether a person's mass is expressed in pounds, kilograms, or stones.
+Therefore its a good idea to use a standard solution which is both safer and more efficient, saving developers valuable time for domain-specific work.
 
-# Unit API with Hibernate
+## Definitions
+The JSR-385 expresses the values and their assigned units as objects of the type `Quantity`.
+A Quantity has to be typed with java generics, e.g. `Quantity<ElectricCurrent>`.
+A Unit can be specified for a specific Quantity type and contains all informations how to convert a given quantity value.
+
+## Implementation
+There are currently multiple implementations for the JSR-385.
+* [Indriya](https://github.com/unitsofmeasurement/indriya) which is the original reference implemantion for the JSR-385
+* [unit-api](https://unit-api.raynigon.com/) on which we will take a closer look in the next chapter
+
+# Unit API as JSR-385 implementation
+The Indriya implemenation for the JSR-385 is a black box framework, 
+which is not designed to be expanded in many ways.
+It is possible to add additional units, but there is no generic way of how to create additional units
+and work with them in annotations.
+Therefore the [unit-api](https://unit-api.raynigon.com/) was started in 2020 
+and adapted the Indriya implemenation.
+The new unit-api allows to use Units in annotations and integrates the JSR-385 into multiple other frameworks.
+It should be possible to use the JSR-385 in Spring Boot without configuration.
+
+## Unit API with Jackson
+The first example is to create a rest api which allows us to get the current weather data in SI-Units.
+<!-- Create Examples -->
+## Unit API with Hibernate
+In this chapter the JSR-385 integration into the persistence layer is discussed.
+<!-- Create Examples -->
