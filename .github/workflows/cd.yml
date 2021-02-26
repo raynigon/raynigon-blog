@@ -19,7 +19,7 @@ jobs:
         #env: 
         #  JEKYLL_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: "Copy Assets"
-        run: cp -r assets/* ./site/
+        run: cp -r assets/* ./_site/
       - name: Upload documentation
         uses: sebastianpopp/ftp-action@releases/v2
         with:
