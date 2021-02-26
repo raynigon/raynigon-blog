@@ -18,6 +18,8 @@ jobs:
         run: bundle exec jekyll build
         env: 
           JEKYLL_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: "Copy Assets"
+        run: cp -r assets/* ./site/
       - name: Upload documentation
         uses: sebastianpopp/ftp-action@releases/v2
         with:

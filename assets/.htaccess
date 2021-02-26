@@ -1,0 +1,12 @@
+<Files ~ "^\.(htaccess|htpasswd)$">
+deny from all
+</Files>
+DirectoryIndex index.html       
+order deny,allow
+
+RewriteEngine  on
+RewriteCond %{HTTP_HOST} !^www\.raynigon\.de(.*)$ [NC]
+RewriteRule ^(.*)$ http://www.raynigon.de/$1 [R=301,L]
+
+Redirect permanent /index.php/de/impressum /imprint/
+Redirect permanent /impressum.html /imprint/
