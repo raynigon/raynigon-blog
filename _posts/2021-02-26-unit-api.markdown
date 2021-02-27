@@ -4,9 +4,12 @@ title:  "Unit API + Spring Boot (1)"
 author: Simon Schneider
 date:   2021-02-26 18:32:00 +0100
 categories: spring-boot unit-api
-image: /img/posts/2021-02-26-unit-api-header.png
-card_image: /img/posts/2021-02-26-unit-api-banner.png
+header_image: /img/posts/2021-02-26-unit-api-header.png
+# Social Media
+image: /img/posts/2021-02-26-unit-api-card.png
 description: Try out the unit-api it integrates well into Spring Boot, Hibernate, Jackson, Kotlin and more
+twitter:
+  username: raynigon
 ---
 
 **TLDR;** If you work with SI-Units/Quantities in your application, try out the [Unit API](https://github.com/raynigon/unit-api/) which is an implementation of [JSR-385](https://www.jcp.org/en/jsr/detail?id=385) with focus on the SI System redefinition, modularity and support for Java SE 8.

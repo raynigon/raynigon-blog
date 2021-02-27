@@ -31,6 +31,12 @@ collections:
 defaults:
   - scope:
       path: ""
+      type: "post"
+    values:
+      layout: "post"
+      logo: /img/logo.png
+  - scope:
+      path: ""
       type: "authors"
     values:
       layout: "author"
