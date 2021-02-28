@@ -36,6 +36,7 @@ defaults:
       layout: "author"
 
 # Build settings
+markdown: kramdown
 livereload: true
 remote_theme: raynigon/mere-blog-theme
 plugins:
