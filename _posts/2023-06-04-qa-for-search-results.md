@@ -856,6 +856,17 @@ the design of a generic "relevance quality assurance management system" (RQAMS) 
 The next blog post will focus on the aspects of relevance-centered organizations, offline metrics and online metrics for a domain-independent search service.
 The last blog post of this series will explained how this system could be expanded to automatically test and propose relevance improvements, based on the insights of how search engines work shown in Analysis of Search Engines.
 
+# References
+
+## Images
+Some images were created using figures from Relevant search[^27] as templates.
+
+The data model for online metrics was derived from shopify[^33].
+
+The header image comes from Foto von [Nana Smirnova](https://unsplash.com/@nananadolgo) on [Unsplash](https://unsplash.com/de/fotos/IEiAmhXehwE)
+
+## Citations
+
 [^1]: Yue, Yisong and Patel, Rajan and Roehrig, Hein. Beyond position bias; 2010. 1013 p. Available from: [dl.acm.org](https://dl.acm.org/doi/abs/10.1145/1772690.1772793)
 [^2]: Turnbull, Doug and Berryman, John. Relevant search: with applications for Solr and Elasticsearch. Manning; 2016. 18 p.
 [^3]: Teofili, Tommaso and Mattmann, Chris. Deep learning for search. Manning; 2019. 14 p.
