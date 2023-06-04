@@ -3,7 +3,8 @@ layout: post
 title:  "QA for search results"
 author: Simon Schneider
 date:   2023-06-04 00:00:00 +0100
-categories: search elasticsearch solr
+categories: qa-for-search
+tags: search elasticsearch solr
 header_image: /img/posts/2023-06-04-qa-for-search-results-header.png
 # Social Media
 image: /img/posts/2023-06-04-qa-for-search-results-card.png
