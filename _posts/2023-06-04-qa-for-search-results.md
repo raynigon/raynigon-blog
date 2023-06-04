@@ -7,7 +7,11 @@ categories: search elasticsearch solr
 header_image: /img/posts/2023-06-04-qa-for-search-results-header.png
 # Social Media
 image: /img/posts/2023-06-04-qa-for-search-results-card.png
-description: Quality assurance for search results
+description: |
+    The user story "As a user I want to find the item I want to interact with." is one of the most complicated ones to implement.
+    How is it possible to ensure a good quality on search results when implementing this user story?
+    This post will explain the need for relevance driven organizations, offline and online metrics.
+    Also a quick outlook explains the next steps for building a generic relevance quality management system.
 twitter:
   username: raynigon
 ---
