@@ -15,13 +15,6 @@ description: |
 twitter:
   username: raynigon
 ---
-<script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
-<style>
-	.hero-body .title{
-		text-shadow: 1px 1px 10px black;
-	}
-</style>
-
 # Introduction
 <p style="font-weight: bold;text-align: center;">
 "As a user I want to find the item I want to interact with."
@@ -63,6 +56,15 @@ Since all methods are built on top of a search engine,
 the second chapter explains the internal details of lucene based search engines.
 The third chapter contains explanations for the most common methods used in quality assurance for search results.
 The conclusion provides an approach, how the methods can be used to answer the question above.
+
+<!-- Load assets here to ensure the summary can be generated -->
+<script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+<style>
+	.hero-body .title{
+		text-shadow: 1px 1px 10px black;
+	}
+</style>
+<!-- END OF ASSETS MANAGEMENT -->
 
 # Analysis of Search Engines
 
