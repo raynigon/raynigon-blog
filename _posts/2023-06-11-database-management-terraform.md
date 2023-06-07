@@ -4,6 +4,7 @@ title:  "Database management with(out) Terraform"
 author: Simon Schneider
 date:   2023-06-11 01:00:00 +0100
 categories: infrastructure-as-code
+tags: terraform iac postgres k8s
 header_image: /img/posts/2023-06-11-header.png
 # Social Media
 image: /img/posts/2023-05-01-card.png
