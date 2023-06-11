@@ -199,13 +199,180 @@ For 1Password a [terraform provider](https://registry.terraform.io/providers/1Pa
 
 # Managing Postgres with K8s
 
+Another approach to manage databases is to use a custom operator to manage the database.
+This approach is most effective when kubernetes is already a big part of the tech stack.
+The [Postgres Operator](https://github.com/brose-ebike/postgres-operator/) is a good example for such an operator.
+With a custom operator the database management can be moved to kubernetes manifests 
+and the manifests can be applied with the same workflow as the rest of the infrastructure.
+The database configuration can be placed next to the application configuration in the same repository.
+The developers can read, write and adapt the database configuration without the need to know terraform.
+Also the workload on SREs is reduced, because they do not need to write, maintain or review the terraform code.
+The operator approach can also make use of the kubernetes RBAC system to authorize database operations.
+Only users which can modify specific resources are able to modify the database configuration.
+
 ## Example
+
+This example will show how to create a database for the `discovery-service` microservice with the Postgres Operator.
+
+The first step is to let the operator know which servers exist.
+These servers can be provisioned with terraform or manually.
+They can be hosted in the cloud or on premise.
+
+### Create the PgInstance resource
+The operator needs to know the connection details of the server and the credentials to access the server.
+These have to be created first and stored in the kubernetes secret `postgres-credentials`.
+For this example the secret needs to have the keys `hostname`, `port`, `user`, `password`, `dbname` and `sslmode`.
+Afterwards the PgInstance resource can be created. This resource allows the operator to connect to the database server and create databases, roles and privileges.
+
+```yaml
+apiVersion: postgres.brose.bike/v1
+kind: PgInstance
+metadata:
+  name: pg-test-001
+spec:
+  host:
+    secretKeyRef: 
+      name: "postgres-credentials"
+      key: "hostname"
+  port:
+    secretKeyRef: 
+      name: "postgres-credentials"
+      key: "port"
+  username:
+    secretKeyRef: 
+      name: "postgres-credentials"
+      key: "user"
+  password:
+    secretKeyRef: 
+      name: "postgres-credentials"
+      key: "password"
+  database:
+    secretKeyRef: 
+      name: "postgres-credentials"
+      key: "dbname"
+  sslMode:
+    secretKeyRef: 
+      name: "postgres-credentials"
+      key: "sslmode"
+```
+
+### Create the PgDatabase resource
+
+The next step is to create the database. This can be done with the PgDatabase resource.
+The PgDatabase resource will create a database in postgres.
+To specify on which server the database should be created the `instance` object allows to specify the namespace and name of the PgInstance resource.
+  
+```yaml
+apiVersion: postgres.brose.bike/v1
+kind: PgDatabase
+metadata:
+  name: discovery-service
+spec:
+  instance:
+    namespace: "default"
+    name: "pg-test-001"
+```
+
+### Create the PgRole resource
+
+The next step is to create the service account user. This can be done with the PgRole resource.
+The PgRole resource will create a login role (user) in postgres, generate a random password and store it in a new kubernetes secret.
+The secret can be used to access the database from the microservice.
+The name of the secret can be specified with the `secret.name` field.
+To specify on which server the role should be created the `instance` object allows to specify the namespace and name of the PgInstance resource.
+Additionally the `databases` array allows to specify the database privileges for each database.
+When the `owner` field is set to `true` the role will be the owner of the specified database.
+
+```yaml
+apiVersion: postgres.brose.bike/v1
+kind: PgRole
+metadata:
+  name: discovery-service
+spec:
+  instance:
+    namespace: "default"
+    name: "pg-test-001"
+  secret:
+    name: "service-credentials"
+  databases: 
+    - name: "discovery-service"
+      owner: true
+      privileges: ["CONNECT", "CREATE"]
+```
+
+### Create the service deployment
+
+After the database and the service account user are created, the service deployment can be created.
+In this case a spring boot microservice will be used as example.
+The service deployment needs to have the database credentials as environment variables.
+The credentials can be read from the secret which was created by the PgRole resource.
+
+```yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: discovery-service
+spec:
+  selector:
+    matchLabels:
+      app: discovery-service
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: discovery-service
+    spec:
+      containers:
+        - name: discovery-service
+          image: "discovery-service:latest"
+          env:
+            - name: SPRING_DATASOURCE_URL
+              valueFrom:
+                secretKeyRef:
+                  name: "service-credentials"
+                  key: "database.discovery-service.jdbc_connection_string"
+            - name: SPRING_DATASOURCE_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: "service-credentials"
+                  key: "user"
+            - name: SPRING_DATASOURCE_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: "service-credentials"
+                  key: "password"
+```
+
+The jdbc connection string is stored in the secret by the PgRole resource.
+There is one string needed per database and since the operator supports multiple databases per role, the secret can contain multiple jdbc connection strings.
+The key of the jdbc connection string is `database.{{name of the database}}.jdbc_connection_string`.
+
 ## Conclusion
 ### Advantages
 
+* The biggest advantage of this approach is that the database management is part of the kubernetes manifests and can be applied with the same workflow as the rest of the application configuration.
+* The database management is versioned and can be reviewed in pull requests.
+* The database management can be tested and is reproducible on other environments.
+* The database management can be applied without the need to have network access to the database server from the developer machine. Since the K8s cluster is usually in the same network as the database server, the operator can access the database server without the need to open the database server to the internet.
+
 ### Disadvantages
 
-# References
+* The biggest disadvantage of this approach is that the initial setup of the administrator user and the database server is not part of the kubernetes manifests. The database server needs to be created manually or with terraform and the connection details need to be placed in a kubernetes secret.
+* The managed of developer users with kubernetes resources can become complicated and sometimes is better placed in the terraform project.
+* The operator needs to be installed and maintained.
+
+# Why not both?
+At my current job we implemented a hybrid approach to get the best of both worlds.
+The database server is created with terraform and the connection details are stored in a kubernetes secret. 
+The whole service account and database management is done with the Postgres Operator.
+Developer users are created with terraform and the credentials are stored in 1Password.
+The terraform project also manages a developer role, which contains all developer users.
+When creating a new database, the developer role is granted access to the database and default privileges are applied, so that the developer users can read the content of the database.
+This allows to setup database where no developer has access to, but which can still be accessed by the service account.
+When a developer leaves the team, the account can easily be removed within terraform.
+When new developers join the team, they can be added to the developer role within terraform.
+The whole process for developers is transparent, easy to understand and can be reviewed in pull requests.
+The whole process for service accounts can be handled without the need of intervention from a SRE.
 
 ## Images
 
