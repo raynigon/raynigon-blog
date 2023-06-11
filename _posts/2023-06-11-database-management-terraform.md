@@ -181,8 +181,6 @@ The `developer-credentials.yaml` file is a bad way to manage developer credentia
 In a real world scenario the developer credentials should be stored in a 1Password vault or a similar solution, which can be accessed by the developers.
 For 1Password a [terraform provider](https://registry.terraform.io/providers/1Password/onepassword/latest) exists, which can be used to create and manage secrets in 1Password.
 
-<!-- How to include code in jekyll https://stackoverflow.com/questions/27351456/jekyll-including-source-code-via-file -->
-
 ## Conclusion
 ### Advantages
 
