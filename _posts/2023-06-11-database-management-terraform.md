@@ -78,10 +78,10 @@ Since there could be differences between the microservices, each service name is
 ```hcl
 locals {
   microservices = {
-    "lading-page-service": {},
-    "discovery-service": {},
-    "order-service": {},
-    "fullfillment-service": {}
+    "lading-page-service    = {}
+    "discovery-service"     = {}
+    "order-service"         = {}
+    "fullfillment-service"  = {}
   }
 }
 ```
