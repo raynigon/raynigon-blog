@@ -40,7 +40,7 @@ In terraform the [cyrilgdn/postgresql](https://registry.terraform.io/providers/c
 
 ## Example
 
-In this example a postgres configuration will be created in terraform, which allows to created multiple databases which are owned by service accounts and can be accessed read only with a developer user account.
+In this example a postgres configuration will be created in terraform, which allows to create multiple databases which are owned by service accounts and can be accessed with a developer user account.
 
 ![Four microservices each with its own database](/img/posts/2023-06-11-database-management-terraform/microservices-1.svg)
 
