@@ -12,8 +12,7 @@ description: How to manage databases with code in small to medium environments
 twitter:
   username: raynigon
 ---
-**TLDR:** When using K8s try to move the database management to manifests and apply them with a custom operator e.g. [Postgres Operator](https://github.com/brose-ebike/postgres-operator/).
-
+**TLDR:** When using K8s try to move the database management to manifests and apply them with a custom operator e.g. [Postgres Operator](https://github.com/brose-ebike/postgres-operator/). This approach will reduce the workload on SREs and allows developers to manage the database configuration without the need to know terraform.
 # Introduction
 Managing Databases in small to medium environments is often a manual task.
 Creating new users and adapting the role and permission models is rarely needed.
