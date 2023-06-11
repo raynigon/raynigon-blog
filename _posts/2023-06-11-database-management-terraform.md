@@ -216,6 +216,11 @@ The first step is to let the operator know which servers exist.
 These servers can be provisioned with terraform or manually.
 They can be hosted in the cloud or on premise.
 
+The following image shows the resources which will used or created in this example.
+
+![The k8s resources which were used or created in this example](/img/posts/2023-06-11-database-management-terraform/k8s-resources.svg)
+
+
 ### Create the PgInstance resource
 The operator needs to know the connection details of the server and the credentials to access the server.
 These have to be created first and stored in the kubernetes secret `postgres-credentials`.
