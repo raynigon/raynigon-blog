@@ -7,7 +7,7 @@ categories: infrastructure-as-code
 tags: terraform iac postgres k8s
 header_image: /img/posts/2023-06-11-header.png
 # Social Media
-image: /img/posts/2023-05-01-card.png
+image: /img/posts/2023-06-11-card.png
 description: How to manage databases with code in small to medium environments
 twitter:
   username: raynigon
