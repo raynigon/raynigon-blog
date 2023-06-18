@@ -253,7 +253,7 @@ This can be one of the reasons an SRE has to debug production at 3am,
 and as a developer you want your SREs to sleep well and be happy.
 
 ## Not everything is scalable
-For the initial data analysis the data was transferred to the data science department as a compressed NJSON file.
+For the initial data analysis the data was transferred to the data science department as a compressed NDJSON[^8] file.
 The file contained the data from all users which gave their consent for data analysis.
 This worked well for the first few months, but then the data grew too big to be decompressed on a single machine.
 The data science department had to batch the data and process it in multiple steps.
@@ -274,9 +274,10 @@ The social card image comes from [Adrien Vajas](https://unsplash.com/@adrien_vj)
 The diagrams contains images from:
 - [Wikimedia Downhill_sketch](https://commons.wikimedia.org/wiki/File:Downhill_sketch.svg)
 - [Wikimedia PostgreSQL Logo](https://upload.wikimedia.org/wikipedia/commons/2/29/Postgresql_elephant.svg)
-- [RabbitMQ Logo](-)
-- [Elasticsearch Logo](-)
-- [Kibana Logo](-)
+- [Wikimedia Kafka Logo](https://upload.wikimedia.org/wikipedia/commons/0/05/Apache_kafka.svg)
+- [RabbitMQ Logo](https://www.instana.com/media/01_INSTANA_IconSet_Rabbit.svg)
+- [Elasticsearch Logo](https://seeklogo.com/vector-logo/323429/elasticsearch)
+- [Kibana Logo](https://seeklogo.com/vector-logo/323424/kibana)
 
 ## Citations
 
@@ -287,3 +288,4 @@ The diagrams contains images from:
 [^5]: Elasticsearch [Index lifecycle management](https://www.elastic.co/guide/en/elasticsearch/reference/current/index-lifecycle-management.html)
 [^6]: Simon Schneider, [Zentrales logging mit dem Elastic Stack](https://media.ccc.de/v/froscon2019-2349-zentrales_logging_mit_dem_elastic_stack)
 [^7]: Quix.io [QuixStreams](https://quix.io/docs/client-library-intro.html)
+[^8]: NDJSON [NDJSON](http://ndjson.org/)
