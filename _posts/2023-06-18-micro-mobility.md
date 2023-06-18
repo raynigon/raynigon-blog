@@ -219,6 +219,16 @@ Inconsistencies in master data can lead to a lot of problems later on.
 This can be one of the reasons an SRE has to debug production at 3am,
 and as a developer you want your SREs to sleep well and be happy.
 
+## Not everything is scalable
+For the initial data analysis the data was transferred to the data analysis department as a compressed NJSON file.
+The file contained the data from all users which gave their consent for data analysis.
+This worked well for the first few months, but then the data grew too big to be decompressed on a single machine.
+The data analysis department had to batch the data and process it in multiple steps.
+This process was complicated and error prone, since all batches needed to be created correctly in the cloud,
+and the data analysis department had to process all the batches in order.
+The new solution with Kafka allows to process the data in near realtime 
+and to scale the data analysis horizontally, when necessary.
+
 # References
 
 ## Images
