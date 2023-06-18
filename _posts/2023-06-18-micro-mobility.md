@@ -19,7 +19,8 @@ A microservice architecture allows to scale the cloud horizontally and to provid
 
 # Introduction
 
-Since 2020 I am working for a company which is manufacturing e-bike components and providing an e-bike system.
+Since 2020 I am working on a project for a company which is manufacturing e-bike components 
+and providing a e-bike systems. The company manufactured over 2 million bikes which are used all over the world[^1].
 At the time the systems hardware consists of a motor, a battery and a display.
 While working there I had the chance to develop a cloud solution which provides
 the interfaces for multiple smartphone apps, IoT devices and other manufacturing related services.
@@ -34,6 +35,9 @@ The cloud is used to store the data of the bike and to provide the data to the s
 Additionally data analysis is performed to improve the new and existing products.
 The stored data accumulates to multiple billion data points per year.
 
+The architecture is still in development and will be improved in the future.
+Some parts of this architecture are already in production, but some are still in development.
+
 # Architecture
 
 ## Requirements
@@ -46,11 +50,30 @@ The telemetry data has to be stored indefinitely, while still being cost efficie
 All telemetry data has to be available in near realtime (<1s), because can view this data from the smartphone app.
 Other departments are never allowed to access data directly, because the users consent is needed for data analysis.
 Only the data from users which gave their consent can be used for data analysis.
-Due to the amount of data it is not possible to pass a data dump to the data analysis department.
+Due to the amount of data it is not possible to pass a data dump to the data science department.
 
 ## Overview
 
-<<!-- TODO add overview image here -->>
+![Architecture overview](/img/posts/2023-06-18-micro-mobility/overview.png)
+
+The overview diagram above shows how the data flows though the cloud systems.
+The systems shown in the cloud are just referenced in the following sections but not explained,
+therefore they can be thought of as a black box system.
+On the left side, the users with their bikes and smartphones are shown.
+Both connect to the clouds load balancer through the internet.
+The IoT devices of the bikes connect to the cloud via MQTTs.
+The smartphone apps connect to the cloud via HTTPs.
+The API services and the brokers are load balanced and high available.
+For the smartphone apps the data is processed in the app backend services.
+The messages stored on the RabbitMQ brokers are consumed by the IoT Backend.
+This service handles the messages and publishes the telemetry data to Kafka.
+All telemetry data is then consumed and stored in elasticsearch.
+The master data services stores the latest version of the telemetry data with the master data in its PostgreSQL database.
+The manufacturing and production systems also publish data to Kafka which is consumed by the master data service.
+These systems partly exist in the cloud environment and partly on premise, but are not shown in the diagram explicitly.
+The data science department consumes the telemetry data from Kafka or analyzes it via elasticsearch.
+The shows diagram is simplified and does not show all services and systems.
+There are validation and security processes in place which are not shown in the diagram.
 
 ## Ingestion
 
@@ -71,6 +94,8 @@ to ensure a bike is registered correctly and the manufacturing data is consisten
 
 ### Smartphone Apps
 
+![Smartphone app connection](/img/posts/2023-06-18-micro-mobility/app-connection.png)
+
 The smartphone apps are used to manage the bike and to provide the user with information about the bike.
 The user can record rides and navigate with the app. 
 The collected data is enriched with the master data from the manufacturing systems
@@ -88,6 +113,8 @@ This allows to handle traffic spikes while still being cost efficient during low
 
 ### IoT Devices
 
+![IoT device connection](/img/posts/2023-06-18-micro-mobility/iot-connection.png)
+
 The IoT devices are used to provide real time updates to the user and to allow remote control of the bike.
 The devices connect to the cloud via MQTT. Each device is authorized by a client side certificate.
 The MQTT broker is configured to only allow connections from authorized devices.
@@ -102,7 +129,7 @@ The telemetry messages are published to a Kafka topic.
 This microservice is can be scaled horizontally as needed, but in this case the bigger bottleneck is the broker itself.
 When a spike of messages is received, the broker has to store the messages in the queue.
 The consumer can then process the messages as fast as possible, but does not need to process all messages instantly.
-Dynamic scaling with RabbitMQ is not possible, because each queue has to be assigned to exactly one broker[^1].
+Dynamic scaling with RabbitMQ is not possible, because each queue has to be assigned to exactly one broker[^2].
 But high availability is more important than dynamic scaling in this case.
 Therefore the RabbitMQ cluster has to be scaled manually and the consumer microservice can be scaled dynamically.
 
@@ -118,6 +145,8 @@ Often only the latest version of the telemetry data is needed (e.g. odometer).
 This allows for fast access when displaying the data in the smartphone app or internal tools,
 while reducing the amount of data which has to be stored in PostgreSQL.
 
+![Master data storage](/img/posts/2023-06-18-micro-mobility/master-data.png)
+
 The master data does not only include bikes, but also individual components.
 This allows to track the components even when they are used in different bikes (e.g. batteries).
 During service components can be switched between bikes and then remanufactured or recycled.
@@ -132,7 +161,7 @@ Only the connection between manufacturing and telemetry data allows for these ki
 The telemetry data written to Kafka is stored in Elasticsearch.
 This allows to store the data indefinitely and to query the data in near realtime.
 The data is stored in a time series data stream, which allows to query the data by time.
-The latest versions of Elasticsearch have a different data stream type for time series data[^2].
+The latest versions of Elasticsearch have a different data stream type for time series data[^3].
 It allows to to query the data faster and to store the data more efficiently.
 This comes with one major drawback: Data points can not be inserted after a specified time period has passed.
 This is a problem for the smartphone apps, because they are not always connected to the cloud
@@ -140,29 +169,33 @@ and possibly send data with a delay of multiple days to months (e.g. last ride i
 Since no data can be skipped / deleted, the data has to be stored in the older format,
 until a better solution gets developed.
 
+![Lifecycle management in Elasticsearch](/img/posts/2023-06-18-micro-mobility/telemetry-storage.png)
+
 Because the data is stored indefinitely and the amount of data is growing rapidly,
-the index lifecycle management is needed[^4].
+the index lifecycle management is needed[^5].
 Index lifecycle management allows to move data from hot to warm to cold storage.
 The hot storage is optimized for fast access and is used for the latest data.
 The warm storage is optimized for cost efficiency and is used for older data which is queried sometimes.
 The cold storage is optimized for long term storage and is used for the data which is old enough to be queried rarely.
-The Index lifecycle management is also explained in the talk "Zentrales Logging mit dem Elastic Stack"[^5].
+The Index lifecycle management is also explained in the talk "Zentrales Logging mit dem Elastic Stack"[^6].
 
 ## Analysis
 
 The data analysis is performed by a different department and is not part of the cloud.
-Therefore the data needs to get transferred to the data analysis department.
+Therefore the data needs to get transferred to the data science department.
 Only the data from users which gave their consent can be used for data analysis.
 The direct access to the database is neither possible nor desired,
 since this would pose a security risk and would require a lot of effort to maintain.
-Therefore the data is transferred to the data analysis department via a Kafka topic.
+Therefore the data is transferred to the data science department via a Kafka topic.
 For analysis of historic data, Elasticsearch can be queried via the Kibana UI for ad-hoc analysis.
-The data analysis department can use the Kibana UI to query only the data from users which gave their consent.
-This was done by using document level security[^3] in Elasticsearch.
+The data science department can use the Kibana UI to query only the data from users which gave their consent.
+This was done by using document level security[^4] in Elasticsearch.
 Also the Kibana UI is security with hardware two factor authentication, rate limited and response size limited to ensure that the data can not be extracted in bulk.
 
+![Data science department](/img/posts/2023-06-18-micro-mobility/data-science.png)
+
 The amount of data in the Kafka topic is limited to a few days.
-This allows for real time analysis and stream analysis with Quix Streams[^6].
+This allows for real time analysis and stream analysis with Quix Streams[^7].
 Quix Streams is a python library for stream analysis.
 Instead of using a framework like Flink or writing a custom application on the JVM,
 Quix Streams allows to write stream analysis in python.
@@ -220,12 +253,12 @@ This can be one of the reasons an SRE has to debug production at 3am,
 and as a developer you want your SREs to sleep well and be happy.
 
 ## Not everything is scalable
-For the initial data analysis the data was transferred to the data analysis department as a compressed NJSON file.
+For the initial data analysis the data was transferred to the data science department as a compressed NJSON file.
 The file contained the data from all users which gave their consent for data analysis.
 This worked well for the first few months, but then the data grew too big to be decompressed on a single machine.
-The data analysis department had to batch the data and process it in multiple steps.
+The data science department had to batch the data and process it in multiple steps.
 This process was complicated and error prone, since all batches needed to be created correctly in the cloud,
-and the data analysis department had to process all the batches in order.
+and the data science department had to process all the batches in order.
 The new solution with Kafka allows to process the data in near realtime 
 and to scale the data analysis horizontally, when necessary.
 
@@ -238,11 +271,19 @@ The header image comes from [Andhika Soreng](https://unsplash.com/@dhika88) on [
 
 The social card image comes from [Adrien Vajas](https://unsplash.com/@adrien_vj) on [Unsplash](https://unsplash.com/de/fotos/o3_3a_EyNnY).
 
+The diagrams contains images from:
+- [Wikimedia Downhill_sketch](https://commons.wikimedia.org/wiki/File:Downhill_sketch.svg)
+- [Wikimedia PostgreSQL Logo](https://upload.wikimedia.org/wikipedia/commons/2/29/Postgresql_elephant.svg)
+- [RabbitMQ Logo](-)
+- [Elasticsearch Logo](-)
+- [Kibana Logo](-)
+
 ## Citations
 
-[^1]: RabbitMQ [Cluster Sizing and Other Considerations](https://blog.rabbitmq.com/posts/2020/06/cluster-sizing-and-other-considerations/)
-[^2]: Elasticsearch [Time series data stream](https://www.elastic.co/guide/en/elasticsearch/reference/current/tsds.html)
-[^3]: Elasticsearch [Document level security](https://www.elastic.co/guide/en/elasticsearch/reference/current/document-level-security.html)
-[^4]: Elasticsearch [Index lifecycle management](https://www.elastic.co/guide/en/elasticsearch/reference/current/index-lifecycle-management.html)
-[^5]: Simon Schneider, [Zentrales logging mit dem Elastic Stack](https://media.ccc.de/v/froscon2019-2349-zentrales_logging_mit_dem_elastic_stack)
-[^6]: Quix.io [QuixStreams](https://quix.io/docs/client-library-intro.html)
+[^1]: Press release [Two million e-bike drives](https://www.brose.com/de-en/press/brose-celebrates-two-million-ebike-drives.html)
+[^2]: RabbitMQ [Cluster Sizing and Other Considerations](https://blog.rabbitmq.com/posts/2020/06/cluster-sizing-and-other-considerations/)
+[^3]: Elasticsearch [Time series data stream](https://www.elastic.co/guide/en/elasticsearch/reference/current/tsds.html)
+[^4]: Elasticsearch [Document level security](https://www.elastic.co/guide/en/elasticsearch/reference/current/document-level-security.html)
+[^5]: Elasticsearch [Index lifecycle management](https://www.elastic.co/guide/en/elasticsearch/reference/current/index-lifecycle-management.html)
+[^6]: Simon Schneider, [Zentrales logging mit dem Elastic Stack](https://media.ccc.de/v/froscon2019-2349-zentrales_logging_mit_dem_elastic_stack)
+[^7]: Quix.io [QuixStreams](https://quix.io/docs/client-library-intro.html)
