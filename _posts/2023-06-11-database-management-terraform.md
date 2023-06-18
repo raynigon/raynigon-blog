@@ -347,7 +347,7 @@ spec:
 
 The jdbc connection string is stored in the secret by the PgRole resource.
 There is one string needed per database and since the operator supports multiple databases per role, the secret can contain multiple jdbc connection strings.
-The key of the jdbc connection string is `database.{{name of the database}}.jdbc_connection_string`.
+The key of the jdbc connection string is `database.<name of the database>.jdbc_connection_string`.
 
 ## Conclusion
 ### Advantages
@@ -378,5 +378,5 @@ The whole process for service accounts can be handled without the need of interv
 
 ## Images
 
-The header image comes from Foto von [Juli Kosolapova](https://unsplash.com/@yuli_superson) on [Unsplash](https://unsplash.com/de/fotos/s6aa3O-iyYE)
+The header image comes from [Juli Kosolapova](https://unsplash.com/@yuli_superson) on [Unsplash](https://unsplash.com/de/fotos/s6aa3O-iyYE)
   
