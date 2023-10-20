@@ -20,8 +20,8 @@ help: ## Display this help.
 
 .PHONY: setup
 setup: ## Install jekyll and its dependencies
-	sudo gem install bundler jekyll
-	sudo bundle install
+	gem install bundler jekyll
+	bundle install
 
 ##@ Development
 
