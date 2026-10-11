@@ -8,11 +8,11 @@ jobs:
     name: "Build & Deploy"
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v7
       - name: Setup Ruby, JRuby and TruffleRuby
-        uses: ruby/setup-ruby@v1.65.0
+        uses: ruby/setup-ruby@v1.328.0
         with:
-          ruby-version: 2.6.3
+          ruby-version: 4.0.7
           bundler-cache: true
       - name: "Build Blog"
         run: bundle exec jekyll build

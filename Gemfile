@@ -7,14 +7,18 @@ source "https://rubygems.org"
 #
 # This will help ensure the proper Jekyll version is running.
 # Happy Jekylling!
-gem "jekyll", "~> 4.2.0"
+gem "jekyll", "~> 4.4"
+
+# Ruby 4.x no longer bundles these by default, but Jekyll 4.4 still needs them.
+gem "logger"
+gem "bigdecimal"
 
 # If you have any plugins, put them here!
 group :jekyll_plugins do
-  gem "jekyll-feed", "~> 0.12"
+  gem "jekyll-feed", "~> 0.18"
   gem "jekyll-remote-theme"
   gem "jekyll-sitemap"
-  gem "jekyll-paginate"
+  gem "jekyll-paginate-v2"
   gem "jekyll-seo-tag"
   gem "jekyll-gist"
 end
