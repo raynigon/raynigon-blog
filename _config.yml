@@ -16,8 +16,14 @@ banner_image: /img/background/code.jpg
 twitter_username: raynigon
 github_username:  raynigon
 
-# Homepage pagination
-paginate: 6
+# Homepage pagination (jekyll-paginate-v2)
+pagination:
+  enabled: true
+  per_page: 6
+  permalink: '/page:num'
+  title: ':title'
+# Kept only because the theme's pagination.html include reads site.paginate_path
+# directly for its numbered page links — must stay in sync with permalink above.
 paginate_path: "/page:num"
 
 # Authors Collection
@@ -43,7 +49,7 @@ plugins:
   - jekyll-feed
   - jekyll-remote-theme
   - jekyll-sitemap
-  - jekyll-paginate
+  - jekyll-paginate-v2
   - jekyll-seo-tag
   - jekyll-gist
   - kramdown
