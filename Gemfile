@@ -18,6 +18,7 @@ group :jekyll_plugins do
   gem "jekyll-feed", "~> 0.18"
   gem "jekyll-remote-theme"
   gem "jekyll-sitemap"
+  gem "jekyll-paginate"
   gem "jekyll-paginate-v2"
   gem "jekyll-seo-tag"
   gem "jekyll-gist"
