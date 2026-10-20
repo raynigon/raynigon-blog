@@ -21,7 +21,7 @@ In his book "Could Should Might Don't: How We Think About the Future," Nick Fost
 The first one is the "could" perspective, where sci-fi, wishes, and expo presentations live.
 One good example of this "could" futurism is the new "flying" car by Tesla. It is a car that no one asked for, no one needs, and which drove the Tesla stock down. Of course, there are some people who will buy it, but this will likely never justify the development costs of the vehicle.
 
-![Flying Car by Gemini](/img/posts/2026-10-25-book-review-csmd/flying-car.jpg)
+![Flying Car by Gemini](/img/posts/2026-10-20-book-review-csmd/flying-car.jpg)
 
 Therefore, this will likely be written off as a marketing budget expense, and we will not speak of it again in a few weeks or months.
 But why is that? A flying car sounds like a dream come true for many sci-fi fans. It sounds like a good, bright future, and still, it does not feel right.
@@ -37,7 +37,7 @@ It's a good marketing story and makes great pictures, but it will likely not be 
 The second perspective is "should" futurism, where a call to action is made. 
 "We should do this, so that..." is a sentence you will likely hear when talking to a "should" futurist. People who live in this mindset are often activists of some kind.
 
-![Ice bear rescue by Gemini](/img/posts/2026-10-25-book-review-csmd/ice-bear-rescue.jpg)
+![Ice bear rescue by Gemini](/img/posts/2026-10-20-book-review-csmd/ice-bear-rescue.jpg)
 
 This is no surprise since "should" futurism is usually driven by morals, ethics, and urgency. The biggest "should" future topic in our age seems to be climate change. "We should do something about rising global temperatures!" is something many people are convinced of because it fits their moral understanding, seems ethically correct, and is an urgent topic.
 Unfortunately, we always seem to not be doing enough—or are we?
@@ -52,7 +52,7 @@ Nevertheless, we need these mindsets to drive initiatives in the world to ensure
 
 The third and most complex perspective is the "might" perspective. It introduces the planner's or strategist's mindset and roots the future in science, data, and math instead of dreaming or demanding. "Might" futurism deals with many possibilities, which need to be weighed against each other.
 
-![Lunch Monk by Gemini](/img/posts/2026-10-25-book-review-csmd/lunch-monk.jpg)
+![Lunch Monk by Gemini](/img/posts/2026-10-20-book-review-csmd/lunch-monk.jpg)
 
 Earlier in my career, I worked for a company that developed optimization software for ground handling at airports. 
 This context does not allow you to plan exactly; you never know the exact order the planes will arrive. Sometimes a plane is delayed, sometimes they are too early, and then there is quite a lot going on before the plane can take off again. 
@@ -66,7 +66,7 @@ This kind of futurism is hard mental work. Getting the data, preparing the scena
 
 The fourth and final perspective Foster introduces is "don't" futurism. This is the domain of the professional pessimist, the risk manager, and the institutional contrarian. While the other perspectives focus on what can or might happen, people in this mindset are focused on a single, vital question: What could go wrong?
 
-![Dangerous Bridge by Gemini](/img/posts/2026-10-25-book-review-csmd/dangerous-bridge.jpg)
+![Dangerous Bridge by Gemini](/img/posts/2026-10-20-book-review-csmd/dangerous-bridge.jpg)
 
 This mindset stands in direct contrast to the bright-eyed "could" futurists we started with. If a "could" futurist stands on a stage and excitedly announces, "Let's put AI chips in everyone's brains for instant telepathy!", the "don't" futurist is the one immediately raising their hand to talk about brain-hacking, the permanent loss of cognitive privacy, and absolute ethical nightmares.
 
