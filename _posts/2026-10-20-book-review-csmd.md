@@ -5,9 +5,9 @@ author: Simon Schneider
 date:   2026-10-25 13:00:00 +0100
 categories: book-review
 tags: book-review future 
-header_image: /img/posts/2026-10-25-header.png
+header_image: /img/posts/2026-10-20-header.png
 # Social Media
-image: /img/posts/2026-10-25-card.png
+image: /img/posts/2026-10-20-card.png
 description: "A review of \"Could Should Might Don't: How We Think About the Future\" by Nick Foster"
 twitter:
   username: raynigon
