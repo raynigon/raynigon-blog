@@ -2,7 +2,7 @@
 layout: post
 title:  "Book Review: Could Should Might Don't by Nick Foster"
 author: Simon Schneider
-date:   2026-10-25 13:00:00 +0100
+date:   2026-10-20 13:00:00 +0100
 categories: book-review
 tags: book-review future 
 header_image: /img/posts/2026-10-20-header.png
