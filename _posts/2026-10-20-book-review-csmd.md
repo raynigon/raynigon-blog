@@ -13,6 +13,12 @@ twitter:
   username: raynigon
 ---
 
+<style>
+	.hero-body .title{
+		text-shadow: 1px 1px 10px black;
+	}
+</style>
+
 # The Book
 In his book "Could Should Might Don't: How We Think About the Future," Nick Foster gives us four perspectives to look at the future.
 
