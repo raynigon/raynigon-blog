@@ -22,6 +22,8 @@ pagination:
   per_page: 6
   permalink: '/page:num'
   title: ':title'
+  sort_field: 'date'
+  sort_reverse: true
 # Kept only because the theme's pagination.html include reads site.paginate_path
 # directly for its numbered page links — must stay in sync with permalink above.
 paginate_path: "/page:num"

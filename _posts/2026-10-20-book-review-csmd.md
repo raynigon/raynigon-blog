@@ -14,7 +14,6 @@ twitter:
 ---
 
 # The Book
-
 In his book "Could Should Might Don't: How We Think About the Future," Nick Foster gives us four perspectives to look at the future.
 
 ## Could
