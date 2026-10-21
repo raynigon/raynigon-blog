@@ -85,4 +85,11 @@ Foster also makes a compelling case for why we desperately need them. They provi
 These four perspectives help me a lot in my daily life. Of course, I cannot do a strategic foresight workshop to get a better idea of what I should cook for dinner, but I take different approaches on other topics in my life.
 Using "could" futurism to generate visions allows me to shine a little bit of light into the future I want to happen. With "should" futurism, I can determine the environment and how it will influence the future. "Might" futurism helps me to analyze plans, actions, and strategies in detail and compare them in the different futures I expect. While "don't" futurism ensures I will not step over the line because I take warnings seriously and evaluate them against the benefits of my decisions.
 
+For the leadership tasks in my job, I use the following approach:
+
+- **Communicate with "could":** Share the vision(s) for the future so everybody has an idea of what is achievable.
+- **Steer with "should":** Establish clear principles, consensus, strategy, and priorities to align on what to do next.
+- **Prepare with "might":** Explore and map external uncertainties, evaluate them, and prepare for what might happen outside of our direct control.
+- **Safeguard with "don't":** Listen to concerns, weigh them against potential benefits, and set clear boundaries that must never be broken.
+
 I hope this post gave you a good summary of what's in the book. If that sounds like your kind of thing, you should definitely check it out.
